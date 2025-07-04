@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { CartItem } from '../models/order.model';
 import { Product } from '../models/product.model';
 
@@ -57,11 +57,17 @@ export class CartService {
 
   getCartTotal(): number {
     return this.cartItemsSubject.value.reduce((total, item) => {
-      return total + (item.product.price * item.quantity);
+      return total + (parseFloat(item.product.price) * item.quantity);
     }, 0);
   }
 
-  getCartItemCount(): number {
+  getCartItemCount(): Observable<number> {
+    return this.cartItems$.pipe(
+      map(items => items.reduce((count, item) => count + item.quantity, 0))
+    );
+  }
+
+  getCartItemCountValue(): number {
     return this.cartItemsSubject.value.reduce((count, item) => count + item.quantity, 0);
   }
 

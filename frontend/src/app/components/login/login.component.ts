@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.loading = true;
-      this.authService.login(this.loginForm.value).subscribe({
+      const loginData = {
+        username: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+      this.authService.login(loginData).subscribe({
         next: (response) => {
           this.snackBar.open('Connexion réussie!', 'Fermer', { duration: 2000 });
           this.router.navigate(['/']);

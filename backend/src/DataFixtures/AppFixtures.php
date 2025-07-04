@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
                 'price' => '179.95',
                 'category' => 'Clothing',
                 'stock' => 30,
-                'image' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/8ea578f6c07847fca2e0ad7700d8416a_9366/Chaussure_Ultraboost_22_Noir_GZ0127_01_standard.jpg'
+                'image' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
             ],
             [
                 'name' => 'Le Seigneur des Anneaux',
@@ -72,7 +72,7 @@ class AppFixtures extends Fixture
                 'price' => '45.00',
                 'category' => 'Books',
                 'stock' => 20,
-                'image' => 'https://m.media-amazon.com/images/I/91jBdaRVqsL._AC_UF1000,1000_QL80_.jpg'
+                'image' => 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
             ],
             [
                 'name' => 'Plante Monstera Deliciosa',
@@ -80,7 +80,7 @@ class AppFixtures extends Fixture
                 'price' => '39.99',
                 'category' => 'Home & Garden',
                 'stock' => 15,
-                'image' => 'https://images.unsplash.com/photo-1545235166-dd446b2e5b52?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+                'image' => 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
             ],
             [
                 'name' => 'Ballon de Football Nike',
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
                 'price' => '24.99',
                 'category' => 'Sports',
                 'stock' => 40,
-                'image' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/e106fd55-7c4b-4387-a1d9-f3c0e2d5c8d7/ballon-de-football-premier-league-strike-DN3596.png'
+                'image' => 'https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
             ]
         ];
 

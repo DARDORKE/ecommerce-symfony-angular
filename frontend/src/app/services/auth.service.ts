@@ -56,10 +56,15 @@ export class AuthService {
       );
   }
 
-  private setSession(authResponse: AuthResponse): void {
+  private setSession(authResponse: any): void {
     localStorage.setItem('token', authResponse.token);
-    localStorage.setItem('user', JSON.stringify(authResponse.user));
-    this.currentUserSubject.next(authResponse.user);
+    if (authResponse.user) {
+      localStorage.setItem('user', JSON.stringify(authResponse.user));
+      this.currentUserSubject.next(authResponse.user);
+    } else {
+      // If no user in response, fetch user data
+      this.refreshUserData().subscribe();
+    }
   }
 
   private loadUserFromStorage(): void {

@@ -20,12 +20,7 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.currentUser$ = this.authService.currentUser$;
-    this.cartItemCount$ = new Observable(observer => {
-      this.cartService.cartItems$.subscribe(items => {
-        const count = items.reduce((total, item) => total + item.quantity, 0);
-        observer.next(count);
-      });
-    });
+    this.cartItemCount$ = this.cartService.getCartItemCount();
   }
 
   ngOnInit(): void {}
