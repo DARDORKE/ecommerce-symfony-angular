@@ -1,0 +1,72 @@
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env.local
+.env.*.local
+.env.production
+
+# Backend (Symfony)
+backend/var/
+backend/vendor/
+backend/.env.local
+backend/.env.*.local
+backend/public/bundles/
+backend/public/uploads/
+
+# Frontend (Angular)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Docker
+.docker/
+
+# Logs
+*.log
+logs/
+
+# Database
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Cache
+.cache/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Build artifacts
+build/
+dist/
+
+# Package manager
+package-lock.json
+yarn.lock
+composer.lock
+
+# Security
+*.pem
+*.key
+*.crt

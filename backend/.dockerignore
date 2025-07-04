@@ -1,0 +1,10 @@
+var/
+vendor/
+.git/
+.gitignore
+README.md
+docker/
+tests/
+.env.local
+.env.test
+.phpunit.result.cache

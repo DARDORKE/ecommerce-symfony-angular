@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Mon Panier</h1>
+    </div>
+  </div>
+
+  <div *ngIf="(cartItems$ | async)?.length === 0" class="text-center py-5">
+    <mat-icon style="font-size: 4rem; height: 4rem; width: 4rem; color: #ccc;">shopping_cart</mat-icon>
+    <h3 class="mt-3 text-muted">Votre panier est vide</h3>
+    <p class="text-muted">Ajoutez des produits pour commencer vos achats</p>
+    <button mat-raised-button color="primary" routerLink="/products">
+      Voir les produits
+    </button>
+  </div>
+
+  <div *ngIf="(cartItems$ | async)?.length! > 0">
+    <div class="row">
+      <div class="col-md-8">
+        <mat-card class="mb-4">
+          <mat-card-header>
+            <mat-card-title>Produits ({{ (cartItems$ | async)?.length }})</mat-card-title>
+            <button mat-button color="warn" (click)="clearCart()" class="ms-auto">
+              Vider le panier
+            </button>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <div *ngFor="let item of cartItems$ | async" class="cart-item">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <img [src]="item.product.image || 'assets/images/no-image.png'" 
+                       [alt]="item.product.name" 
+                       class="img-fluid rounded">
+                </div>
+                <div class="col-md-4">
+                  <h6>{{ item.product.name }}</h6>
+                  <small class="text-muted">{{ item.product.category }}</small>
+                </div>
+                <div class="col-md-2">
+                  <span class="fw-bold">{{ item.product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+                </div>
+                <div class="col-md-3">
+                  <div class="d-flex align-items-center">
+                    <button mat-icon-button 
+                            (click)="updateQuantity(item.product.id, item.quantity - 1)"
+                            [disabled]="item.quantity <= 1">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <span class="mx-2">{{ item.quantity }}</span>
+                    <button mat-icon-button 
+                            (click)="updateQuantity(item.product.id, item.quantity + 1)"
+                            [disabled]="item.quantity >= item.product.stock">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <button mat-icon-button color="warn" (click)="removeItem(item.product.id)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Résumé de la commande</mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Sous-total:</span>
+              <span>{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Livraison:</span>
+              <span>Gratuite</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <strong>Total:</strong>
+              <strong>{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</strong>
+            </div>
+            
+            <button mat-raised-button 
+                    color="primary" 
+                    class="w-100"
+                    [disabled]="loading"
+                    (click)="checkout()">
+              <mat-spinner diameter="20" *ngIf="loading" class="me-2"></mat-spinner>
+              {{ loading ? 'Traitement...' : 'Passer la commande' }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

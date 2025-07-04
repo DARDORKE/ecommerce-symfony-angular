@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <mat-card class="login-card">
+        <mat-card-header class="text-center">
+          <mat-card-title>
+            <mat-icon class="large-icon">login</mat-icon>
+            <h2 class="mt-2">Connexion</h2>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100 mb-3">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" required>
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                {{ getErrorMessage('email') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 mb-3">
+              <mat-label>Mot de passe</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" type="button">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                {{ getErrorMessage('password') }}
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button 
+                    color="primary" 
+                    type="submit" 
+                    class="w-100 mb-3"
+                    [disabled]="loginForm.invalid || loading">
+              <mat-spinner diameter="20" *ngIf="loading" class="me-2"></mat-spinner>
+              {{ loading ? 'Connexion...' : 'Se connecter' }}
+            </button>
+          </form>
+
+          <div class="text-center">
+            <p class="mb-0">Pas encore de compte?</p>
+            <a routerLink="/register" class="text-decoration-none">S'inscrire</a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

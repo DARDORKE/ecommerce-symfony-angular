@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="fixed-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div class="navbar-brand">
+      <a routerLink="/" class="text-decoration-none text-white">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="ms-2">E-commerce</span>
+      </a>
+    </div>
+
+    <div class="d-flex align-items-center">
+      <nav class="me-3">
+        <a routerLink="/products" class="text-white text-decoration-none me-3">Produits</a>
+        <a routerLink="/cart" class="text-white text-decoration-none me-3">
+          <mat-icon [matBadge]="(cartItemCount$ | async) || 0" matBadgeColor="accent">shopping_cart</mat-icon>
+          Panier
+        </a>
+      </nav>
+
+      <div *ngIf="currentUser$ | async as user; else loginSection">
+        <button mat-button [matMenuTriggerFor]="userMenu" class="text-white">
+          <mat-icon>account_circle</mat-icon>
+          {{ user.firstName }} {{ user.lastName }}
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <a mat-menu-item routerLink="/orders">
+            <mat-icon>list</mat-icon>
+            Mes commandes
+          </a>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            Déconnexion
+          </button>
+        </mat-menu>
+      </div>
+
+      <ng-template #loginSection>
+        <a routerLink="/login" class="btn btn-outline-light me-2">Connexion</a>
+        <a routerLink="/register" class="btn btn-light">Inscription</a>
+      </ng-template>
+    </div>
+  </div>
+</mat-toolbar>

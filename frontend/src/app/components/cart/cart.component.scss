@@ -1,0 +1,19 @@
+.cart-item {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item img {
+  max-height: 80px;
+  object-fit: cover;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
