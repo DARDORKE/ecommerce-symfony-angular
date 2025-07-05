@@ -23,7 +23,7 @@ COPY composer.json ./
 COPY composer.lock* ./
 
 # Update composer.lock and install dependencies
-RUN composer update --no-scripts --optimize-autoloader
+RUN composer update phpstan/phpdoc-parser --no-scripts --optimize-autoloader
 
 # Copy application code
 COPY . .

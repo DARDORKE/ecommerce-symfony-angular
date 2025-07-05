@@ -110,4 +110,71 @@ class AuthController extends AbstractController
             ]
         ]);
     }
+
+    #[Route('/debug-register', name: 'debug_register', methods: ['GET'])]
+    public function debugRegister(): JsonResponse
+    {
+        try {
+            // Test database connection
+            $connection = $this->entityManager->getConnection();
+            $connection->executeQuery('SELECT 1');
+            $dbStatus = 'OK';
+        } catch (\Exception $e) {
+            $dbStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        try {
+            // Test User repository
+            $userRepository = $this->entityManager->getRepository(User::class);
+            $userCount = $userRepository->count([]);
+            $repoStatus = 'OK - ' . $userCount . ' users';
+        } catch (\Exception $e) {
+            $repoStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        try {
+            // Test creating a User object
+            $testUser = new User();
+            $testUser->setEmail('test@example.com');
+            $testUser->setFirstName('Test');
+            $testUser->setLastName('User');
+            $userObjectStatus = 'OK';
+        } catch (\Exception $e) {
+            $userObjectStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        try {
+            // Test password hasher
+            $hashedPassword = $this->passwordHasher->hashPassword($testUser, 'test123');
+            $passwordHasherStatus = 'OK';
+        } catch (\Exception $e) {
+            $passwordHasherStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        try {
+            // Test validator
+            $errors = $this->validator->validate($testUser);
+            $validatorStatus = 'OK - ' . count($errors) . ' errors';
+        } catch (\Exception $e) {
+            $validatorStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        try {
+            // Test serializer
+            $serialized = $this->serializer->serialize($testUser, 'json', ['groups' => 'user:read']);
+            $serializerStatus = 'OK';
+        } catch (\Exception $e) {
+            $serializerStatus = 'ERROR: ' . $e->getMessage();
+        }
+
+        return $this->json([
+            'database' => $dbStatus,
+            'user_repository' => $repoStatus,
+            'user_object' => $userObjectStatus,
+            'password_hasher' => $passwordHasherStatus,
+            'validator' => $validatorStatus,
+            'serializer' => $serializerStatus,
+            'environment' => $_ENV['APP_ENV'] ?? 'NOT_SET'
+        ]);
+    }
 }
