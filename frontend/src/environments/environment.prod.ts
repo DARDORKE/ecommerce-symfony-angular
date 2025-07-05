@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-api-domain.com/api'
+  apiUrl: 'https://ecommerce-symfony-angular-production.up.railway.app/api'
 };
