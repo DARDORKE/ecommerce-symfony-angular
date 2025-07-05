@@ -1,52 +1,53 @@
-<mat-toolbar class="modern-header">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <div class="navbar-brand">
-      <a routerLink="/" class="brand-link">
-        <div class="brand-icon">
+<header class="app-header">
+  <div class="header-container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-icon">
           <mat-icon>store</mat-icon>
         </div>
-        <span class="brand-text">ShopFlow</span>
+        <span class="logo-text">ShopFlow</span>
       </a>
     </div>
 
-    <div class="header-actions">
-      <nav class="nav-links">
-        <a routerLink="/products" class="nav-link">
-          <mat-icon>inventory_2</mat-icon>
-          <span>Produits</span>
-        </a>
-        <a routerLink="/cart" class="nav-link cart-link">
-          <mat-icon [matBadge]="(cartItemCount$ | async) || 0" matBadgeColor="accent" class="cart-icon">shopping_bag</mat-icon>
-          <span>Panier</span>
-        </a>
-      </nav>
+    <!-- Navigation Section -->
+    <nav class="main-nav">
+      <a routerLink="/products" class="nav-item">
+        <mat-icon>inventory_2</mat-icon>
+        <span class="nav-text">Produits</span>
+      </a>
+      <a routerLink="/cart" class="nav-item cart-item">
+        <mat-icon [matBadge]="(cartItemCount$ | async) || 0" matBadgeColor="accent">shopping_bag</mat-icon>
+        <span class="nav-text">Panier</span>
+      </a>
+    </nav>
 
-      <div class="user-section" *ngIf="currentUser$ | async as user; else loginSection">
-        <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
-          <div class="user-avatar">
-            <mat-icon>account_circle</mat-icon>
-          </div>
-          <span class="user-name">{{ user.firstName }}</span>
-          <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+    <!-- User Section -->
+    <div class="user-section">
+      <div *ngIf="currentUser$ | async as user; else authSection" class="user-menu-container">
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user-trigger">
+          <mat-icon class="user-avatar">account_circle</mat-icon>
+          <span class="user-display">{{ getUserDisplayName(user) }}</span>
+          <mat-icon class="dropdown-arrow">expand_more</mat-icon>
         </button>
-        <mat-menu #userMenu="matMenu" class="user-menu">
-          <a mat-menu-item routerLink="/orders" class="menu-item">
+        <mat-menu #userMenu="matMenu" class="user-dropdown">
+          <a mat-menu-item routerLink="/orders">
             <mat-icon>receipt_long</mat-icon>
             <span>Mes commandes</span>
           </a>
-          <button mat-menu-item (click)="logout()" class="menu-item logout">
+          <button mat-menu-item (click)="logout()">
             <mat-icon>logout</mat-icon>
             <span>Déconnexion</span>
           </button>
         </mat-menu>
       </div>
 
-      <ng-template #loginSection>
-        <div class="auth-buttons">
-          <a routerLink="/login" class="auth-btn login-btn">Connexion</a>
-          <a routerLink="/register" class="auth-btn register-btn">Inscription</a>
+      <ng-template #authSection>
+        <div class="auth-section">
+          <a routerLink="/login" class="auth-link login">Connexion</a>
+          <a routerLink="/register" class="auth-link register">Inscription</a>
         </div>
       </ng-template>
     </div>
   </div>
-</mat-toolbar>
+</header>

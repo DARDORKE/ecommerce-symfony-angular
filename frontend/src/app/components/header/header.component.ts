@@ -29,4 +29,14 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']);
   }
+
+  getUserDisplayName(user: User): string {
+    if (user.firstName) {
+      return user.firstName;
+    }
+    if (user.email) {
+      return user.email.split('@')[0];
+    }
+    return 'Utilisateur';
+  }
 }
