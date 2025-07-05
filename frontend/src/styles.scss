@@ -237,16 +237,22 @@ h6 { font-size: 1rem; }
       font-weight: 500;
     }
     
+    // Labels et text non-flottants
+    .mat-mdc-form-field-label,
+    .mat-mdc-form-field-label-wrapper {
+      color: #94a3b8 !important;
+    }
+    
     &.mat-focused .mat-mdc-floating-label {
       color: var(--primary-color) !important;
     }
     
     .mat-mdc-input-element {
-      color: #e2e8f0;
+      color: #e2e8f0 !important;
       font-weight: 500;
       
       &::placeholder {
-        color: var(--gray-400);
+        color: var(--gray-400) !important;
         font-weight: 400;
       }
     }
@@ -259,7 +265,44 @@ h6 { font-size: 1rem; }
         color: var(--primary-color);
       }
     }
+    
+    // Sélecteurs additionnels pour tous les types d'inputs
+    input, textarea, select {
+      color: #e2e8f0 !important;
+      
+      &::placeholder {
+        color: var(--gray-400) !important;
+      }
+    }
+    
+    // Styles spécifiques pour Mat Select
+    .mat-mdc-select-value {
+      color: #e2e8f0 !important;
+    }
+    
+    .mat-mdc-select-placeholder {
+      color: var(--gray-400) !important;
+    }
   }
+}
+
+// Règles globales pour tous les inputs (fallback)
+input, textarea, select {
+  color: #e2e8f0 !important;
+  
+  &::placeholder {
+    color: var(--gray-400) !important;
+  }
+}
+
+// Mat Select global
+.mat-mdc-select-value,
+.mat-mdc-select-value-text {
+  color: #e2e8f0 !important;
+}
+
+.mat-mdc-select-placeholder {
+  color: var(--gray-400) !important;
 }
 
 // Component Styles

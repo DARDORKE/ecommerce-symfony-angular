@@ -176,6 +176,11 @@
           font-size: 1rem;
           font-weight: 500;
           padding: 16px 14px;
+          color: #e2e8f0 !important;
+          
+          &::placeholder {
+            color: var(--gray-400) !important;
+          }
         }
         
         .mat-mdc-form-field-error {
