@@ -103,10 +103,8 @@ class AuthController extends AbstractController
                 'password' => 'admin123'
             ],
             'jwt_config' => [
-                'private_key_exists' => file_exists('/app/config/jwt-prod/private.pem'),
-                'public_key_exists' => file_exists('/app/config/jwt-prod/public.pem'),
-                'env_jwt_secret_key' => $_ENV['JWT_SECRET_KEY'] ?? 'NOT_SET',
-                'env_jwt_passphrase' => $_ENV['JWT_PASSPHRASE'] ?? 'NOT_SET'
+                'secret_configured' => !empty($_ENV['JWT_SECRET'] ?? ''),
+                'ttl' => $_ENV['JWT_TTL'] ?? '3600'
             ]
         ]);
     }
