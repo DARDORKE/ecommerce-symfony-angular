@@ -11,3 +11,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    # JWT Environment Processor
+    App\Service\JwtEnvProcessor:
+        tags: ['container.env_var_processor']
