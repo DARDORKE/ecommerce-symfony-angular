@@ -10,8 +10,13 @@ import { Component } from '@angular/core';
   `,
   styles: [`
     main {
-      padding-top: 80px;
+      padding-top: 96px;
       min-height: 100vh;
+      background-color: var(--gray-50);
+      
+      @media (max-width: 768px) {
+        padding-top: 80px;
+      }
     }
   `]
 })

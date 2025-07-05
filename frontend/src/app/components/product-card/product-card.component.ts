@@ -30,4 +30,14 @@ export class ProductCardComponent {
   getImageUrl(): string {
     return this.product.image || 'assets/images/no-image.png';
   }
+
+  getStockText(): string {
+    if (this.product.stock === 0) {
+      return 'Rupture';
+    } else if (this.product.stock < 5) {
+      return `Stock faible (${this.product.stock})`;
+    } else {
+      return `En stock (${this.product.stock})`;
+    }
+  }
 }

@@ -1,53 +1,128 @@
-<div class="container">
-  <div class="row mb-4">
-    <div class="col-12">
-      <h1 class="text-center mb-4">Nos Produits</h1>
+<div class="products-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title fade-in">Découvrez nos produits</h1>
+      <p class="hero-subtitle fade-in">Une sélection soignée de produits de qualité</p>
     </div>
   </div>
 
-  <!-- Filters -->
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <mat-form-field class="w-100">
-        <mat-label>Rechercher</mat-label>
-        <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Rechercher un produit...">
-        <mat-icon matSuffix (click)="onSearch()" style="cursor: pointer;">search</mat-icon>
-      </mat-form-field>
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filters-container">
+      <div class="filters-header">
+        <h2 class="filters-title">Filtrer les produits</h2>
+        <button mat-button 
+                class="clear-filters-btn" 
+                (click)="clearFilters()"
+                [disabled]="!hasActiveFilters()">
+          <mat-icon>clear_all</mat-icon>
+          <span>Effacer tout</span>
+        </button>
+      </div>
+      
+      <div class="filters-row">
+        <div class="filter-item search-filter">
+          <mat-form-field class="search-field" appearance="outline">
+            <mat-label>Rechercher un produit</mat-label>
+            <input matInput 
+                   [(ngModel)]="searchTerm" 
+                   (keyup.enter)="onSearch()" 
+                   placeholder="Nom, description..."
+                   #searchInput>
+            <button mat-icon-button matSuffix (click)="onSearch()" class="search-btn">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button 
+                    matSuffix 
+                    (click)="clearSearch()" 
+                    *ngIf="searchTerm"
+                    class="clear-search-btn">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        
+        <div class="filter-item category-filter">
+          <mat-form-field class="category-field" appearance="outline">
+            <mat-label>Catégorie</mat-label>
+            <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
+              <mat-option value="">
+                <mat-icon>apps</mat-icon>
+                <span>Toutes les catégories</span>
+              </mat-option>
+              <mat-option *ngFor="let category of categories$ | async" [value]="category">
+                <span>{{ category }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="filter-item sort-filter">
+          <mat-form-field class="sort-field" appearance="outline">
+            <mat-label>Trier par</mat-label>
+            <mat-select [(value)]="sortBy" (selectionChange)="onSortChange($event.value)">
+              <mat-option value="">
+                <mat-icon>sort</mat-icon>
+                <span>Par défaut</span>
+              </mat-option>
+              <mat-option value="price_asc">
+                <mat-icon>trending_up</mat-icon>
+                <span>Prix croissant</span>
+              </mat-option>
+              <mat-option value="price_desc">
+                <mat-icon>trending_down</mat-icon>
+                <span>Prix décroissant</span>
+              </mat-option>
+              <mat-option value="name">
+                <mat-icon>sort_by_alpha</mat-icon>
+                <span>Nom A-Z</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4">
-      <mat-form-field class="w-100">
-        <mat-label>Catégorie</mat-label>
-        <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
-          <mat-option value="">Toutes les catégories</mat-option>
-          <mat-option *ngFor="let category of categories$ | async" [value]="category">
-            {{ category }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content-section">
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="loading-text">Chargement des produits...</p>
     </div>
-    <div class="col-md-2">
-      <button mat-raised-button color="accent" (click)="clearFilters()" class="w-100">
-        Effacer
+
+    <!-- Products Grid -->
+    <div class="products-grid" *ngIf="!loading && (products$ | async)?.length! > 0">
+      <div class="products-header">
+        <div class="products-count">
+          <span class="count-number">{{ (products$ | async)?.length }}</span>
+          <span class="count-text">produit{{ (products$ | async)?.length! > 1 ? 's' : '' }} trouvé{{ (products$ | async)?.length! > 1 ? 's' : '' }}</span>
+        </div>
+      </div>
+      
+      <div class="grid-container">
+        <div class="product-item" *ngFor="let product of products$ | async; trackBy: trackByProductId">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="(products$ | async)?.length === 0 && !loading" class="empty-state">
+      <div class="empty-icon">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      <h3 class="empty-title">Aucun produit trouvé</h3>
+      <p class="empty-subtitle">Essayez de modifier vos critères de recherche ou parcourez toutes les catégories</p>
+      <button mat-raised-button 
+              color="primary" 
+              (click)="clearFilters()"
+              class="empty-action-btn">
+        <mat-icon>refresh</mat-icon>
+        <span>Voir tous les produits</span>
       </button>
     </div>
-  </div>
-
-  <!-- Loading -->
-  <div *ngIf="loading" class="loading-spinner">
-    <mat-spinner></mat-spinner>
-  </div>
-
-  <!-- Products Grid -->
-  <div class="row" *ngIf="!loading">
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of products$ | async">
-      <app-product-card [product]="product"></app-product-card>
-    </div>
-  </div>
-
-  <!-- No products message -->
-  <div *ngIf="(products$ | async)?.length === 0 && !loading" class="text-center py-5">
-    <mat-icon style="font-size: 4rem; height: 4rem; width: 4rem; color: #ccc;">search_off</mat-icon>
-    <h3 class="mt-3 text-muted">Aucun produit trouvé</h3>
-    <p class="text-muted">Essayez de modifier vos critères de recherche</p>
   </div>
 </div>

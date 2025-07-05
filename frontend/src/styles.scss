@@ -1,32 +1,232 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.mat-toolbar {
-  background-color: #1976d2;
-  color: white;
+// Design System Variables - Electric Purple & Teal Theme
+:root {
+  // Primary palette - Electric Purple
+  --primary-color: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-lighter: #c4b5fd;
+  --primary-darker: #6d28d9;
+  
+  // Secondary palette - Electric Teal
+  --secondary-color: #14b8a6;
+  --secondary-dark: #0f766e;
+  --secondary-light: #2dd4bf;
+  --secondary-lighter: #5eead4;
+  
+  // Accent colors - Vibrant Pink & Orange
+  --accent-color: #f59e0b;
+  --accent-secondary: #ec4899;
+  --accent-tertiary: #06b6d4;
+  
+  // Status colors
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #06b6d4;
+  
+  // Neutral palette - Cool grays with purple undertones
+  --gray-50: #faf7ff;
+  --gray-100: #f4f1fd;
+  --gray-200: #e9e4f7;
+  --gray-300: #d4c7ee;
+  --gray-400: #a78bfa;
+  --gray-500: #8b5cf6;
+  --gray-600: #7c3aed;
+  --gray-700: #6d28d9;
+  --gray-800: #5b21b6;
+  --gray-900: #4c1d95;
+  
+  --white: #ffffff;
+  --black: #0f0f23;
+  
+  // Surface colors with subtle gradients
+  --surface-primary: linear-gradient(135deg, #faf7ff 0%, #f4f1fd 100%);
+  --surface-secondary: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+  --surface-accent: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  
+  // Border radius with more organic feel
+  --border-radius: 16px;
+  --border-radius-sm: 12px;
+  --border-radius-lg: 24px;
+  --border-radius-xl: 32px;
+  
+  // Enhanced shadows with color tinting
+  --shadow-sm: 0 1px 2px 0 rgb(139 92 246 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(139 92 246 / 0.1), 0 1px 2px -1px rgb(139 92 246 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(139 92 246 / 0.1), 0 2px 4px -2px rgb(139 92 246 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(139 92 246 / 0.15), 0 4px 6px -4px rgb(139 92 246 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(139 92 246 / 0.15), 0 8px 10px -6px rgb(139 92 246 / 0.05);
+  --shadow-primary: 0 8px 25px -8px rgb(139 92 246 / 0.3);
+  --shadow-secondary: 0 8px 25px -8px rgb(20 184 166 / 0.3);
+  --shadow-accent: 0 8px 25px -8px rgb(245 158 11 / 0.3);
+  
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
 }
 
+// Global Styles
+html, body { 
+  height: 100%; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body { 
+  margin: 0; 
+  background: var(--surface-primary);
+  color: var(--gray-800);
+  line-height: 1.6;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+// Material Design Overrides - Stylized Theme
+.mat-toolbar {
+  background: var(--white) !important;
+  color: var(--gray-800) !important;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--gray-200);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.mat-raised-button.mat-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm) !important;
+  box-shadow: var(--shadow-primary) !important;
+  transition: all var(--transition-fast);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.mat-raised-button.mat-primary:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker)) !important;
+  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.mat-raised-button.mat-accent {
+  background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark)) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm) !important;
+  box-shadow: var(--shadow-secondary) !important;
+  transition: all var(--transition-fast);
+}
+
+.mat-raised-button.mat-accent:hover {
+  background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color)) !important;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.mat-card {
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-secondary));
+  }
+}
+
+.mat-form-field {
+  .mat-form-field-outline {
+    border-radius: var(--border-radius-sm) !important;
+  }
+  
+  .mat-form-field-outline-start,
+  .mat-form-field-outline-end {
+    border-radius: var(--border-radius-sm) !important;
+  }
+}
+
+// Component Styles
 .product-card {
-  margin-bottom: 20px;
-  transition: transform 0.2s ease-in-out;
+  margin-bottom: 24px;
+  transition: all var(--transition-normal);
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .cart-item {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 15px 0;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 20px 0;
+  transition: background-color var(--transition-fast);
+}
+
+.cart-item:hover {
+  background-color: var(--gray-50);
 }
 
 .cart-item:last-child {
   border-bottom: none;
 }
 
+// Utility Classes
 .loading-spinner {
   display: flex;
   justify-content: center;
@@ -35,13 +235,80 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .error-message {
-  color: #f44336;
+  color: var(--error-color);
   text-align: center;
   padding: 20px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--border-radius-sm);
+  margin: 16px 0;
 }
 
 .success-message {
-  color: #4caf50;
+  color: var(--success-color);
   text-align: center;
   padding: 20px;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--border-radius-sm);
+  margin: 16px 0;
+}
+
+.warning-message {
+  color: var(--warning-color);
+  text-align: center;
+  padding: 20px;
+  background-color: #fffbeb;
+  border: 1px solid #fed7aa;
+  border-radius: var(--border-radius-sm);
+  margin: 16px 0;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  h1 { font-size: 1.875rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+// Animation Classes
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
 }

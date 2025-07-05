@@ -1,29 +1,33 @@
-<mat-card class="product-card h-100">
+<mat-card class="product-card h-100 fade-in">
   <div class="card-image-container">
     <img [src]="getImageUrl()" [alt]="product.name" class="card-img-top">
     <div class="category-badge">{{ product.category }}</div>
   </div>
   
-  <mat-card-content class="d-flex flex-column flex-grow-1">
+  <mat-card-content>
     <h5 class="card-title">{{ product.name }}</h5>
-    <p class="card-text text-muted small">{{ product.description | slice:0:100 }}...</p>
+    <p class="card-text">{{ product.description | slice:0:120 }}...</p>
     
-    <div class="mt-auto">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
-        <span class="stock" [class.text-danger]="product.stock < 5" [class.text-warning]="product.stock >= 5 && product.stock < 10">
-          Stock: {{ product.stock }}
+    <div class="card-footer">
+      <div class="price-stock-row">
+        <span class="price">
+          {{ product.price | currency:'EUR':'symbol':'1.2-2' }}
+        </span>
+        <span class="stock" 
+              [class.out-of-stock]="product.stock === 0"
+              [class.low-stock]="product.stock > 0 && product.stock < 5"
+              [class.in-stock]="product.stock >= 5">
+          {{ getStockText() }}
         </span>
       </div>
       
       <button 
         mat-raised-button 
-        color="primary" 
-        class="w-100"
+        class="add-to-cart-btn"
         [disabled]="product.stock === 0"
         (click)="addToCart()">
-        <mat-icon>add_shopping_cart</mat-icon>
-        {{ product.stock === 0 ? 'Rupture de stock' : 'Ajouter au panier' }}
+        <mat-icon>{{ product.stock === 0 ? 'block' : 'add_shopping_cart' }}</mat-icon>
+        <span>{{ product.stock === 0 ? 'Rupture de stock' : 'Ajouter au panier' }}</span>
       </button>
     </div>
   </mat-card-content>

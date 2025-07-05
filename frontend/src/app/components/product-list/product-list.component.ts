@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
   categories$: Observable<string[]>;
   selectedCategory: string = '';
   searchTerm: string = '';
+  sortBy: string = '';
   loading = false;
 
   constructor(private productService: ProductService) {
@@ -42,9 +43,28 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
   }
 
+  onSortChange(sortBy: string): void {
+    this.sortBy = sortBy;
+    this.loadProducts();
+  }
+
   clearFilters(): void {
     this.selectedCategory = '';
     this.searchTerm = '';
+    this.sortBy = '';
     this.loadProducts();
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.loadProducts();
+  }
+
+  hasActiveFilters(): boolean {
+    return !!(this.searchTerm || this.selectedCategory || this.sortBy);
+  }
+
+  trackByProductId(index: number, product: Product): number {
+    return product.id;
   }
 }
