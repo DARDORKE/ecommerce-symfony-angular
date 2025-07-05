@@ -26,32 +26,53 @@ class AuthController extends AbstractController
     #[Route('/register', name: 'register', methods: ['POST'])]
     public function register(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
+        try {
+            $data = json_decode($request->getContent(), true);
+            
+            // Validate JSON input
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return $this->json(['error' => 'Invalid JSON'], 400);
+            }
 
-        // Check if user already exists
-        $userRepository = $this->entityManager->getRepository(User::class);
-        $existingUser = $userRepository->findOneBy(['email' => $data['email']]);
-        
-        if ($existingUser) {
-            return $this->json(['error' => 'User already exists'], 409);
+            // Validate required fields
+            if (!isset($data['email'], $data['firstName'], $data['lastName'], $data['password'])) {
+                return $this->json(['error' => 'Missing required fields'], 400);
+            }
+
+            // Check if user already exists
+            $userRepository = $this->entityManager->getRepository(User::class);
+            $existingUser = $userRepository->findOneBy(['email' => $data['email']]);
+            
+            if ($existingUser) {
+                return $this->json(['error' => 'User already exists'], 409);
+            }
+
+            $user = new User();
+            $user->setEmail($data['email']);
+            $user->setFirstName($data['firstName']);
+            $user->setLastName($data['lastName']);
+            $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
+
+            $errors = $this->validator->validate($user);
+            if (count($errors) > 0) {
+                return $this->json(['errors' => (string) $errors], 400);
+            }
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            $userData = $this->serializer->serialize($user, 'json', ['groups' => 'user:read']);
+            return JsonResponse::fromJsonString($userData, 201);
+            
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            error_log('Registration error: ' . $e->getMessage());
+            
+            return $this->json([
+                'error' => 'Registration failed',
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        $user = new User();
-        $user->setEmail($data['email']);
-        $user->setFirstName($data['firstName']);
-        $user->setLastName($data['lastName']);
-        $user->setPassword($this->passwordHasher->hashPassword($user, $data['password']));
-
-        $errors = $this->validator->validate($user);
-        if (count($errors) > 0) {
-            return $this->json(['errors' => (string) $errors], 400);
-        }
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        $userData = $this->serializer->serialize($user, 'json', ['groups' => 'user:read']);
-        return JsonResponse::fromJsonString($userData, 201);
     }
 
     #[Route('/login_check', name: 'login_check', methods: ['POST'])]
