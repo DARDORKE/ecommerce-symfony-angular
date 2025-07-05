@@ -32,88 +32,91 @@ help:
 
 # Development Environment
 dev-start:
-	docker-compose up -d
+	docker-compose -f docker-compose.dev.yml up -d --build
 
 dev-stop:
-	docker-compose down
+	docker-compose -f docker-compose.dev.yml down
 
 dev-logs:
-	docker-compose logs -f
+	docker-compose -f docker-compose.dev.yml logs -f
 
 dev-logs-backend:
-	docker-compose logs -f backend
+	docker-compose -f docker-compose.dev.yml logs -f backend
 
 dev-logs-frontend:
-	docker-compose logs -f frontend
+	docker-compose -f docker-compose.dev.yml logs -f frontend
 
 # Installation
 install: install-backend install-frontend
 
 install-backend:
-	docker-compose exec backend composer install
+	docker-compose -f docker-compose.dev.yml exec backend composer install
 
 install-frontend:
-	docker-compose exec frontend npm install
+	docker-compose -f docker-compose.dev.yml exec frontend npm install
 
 # Database Operations
 db-create:
-	docker-compose exec backend php bin/console doctrine:database:create --if-not-exists
+	docker-compose -f docker-compose.dev.yml exec backend php bin/console doctrine:database:create --if-not-exists
 
 db-migrate:
-	docker-compose exec backend php bin/console doctrine:migrations:migrate --no-interaction
+	docker-compose -f docker-compose.dev.yml exec backend php bin/console doctrine:migrations:migrate --no-interaction
 
 db-fixtures:
-	docker-compose exec backend php bin/console doctrine:fixtures:load --no-interaction
+	docker-compose -f docker-compose.dev.yml exec backend php bin/console doctrine:fixtures:load --no-interaction
 
 db-reset: db-drop db-create db-migrate db-fixtures
 
 db-drop:
-	docker-compose exec backend php bin/console doctrine:database:drop --force --if-exists
+	docker-compose -f docker-compose.dev.yml exec backend php bin/console doctrine:database:drop --force --if-exists
 
 db-schema-update:
-	docker-compose exec backend php bin/console doctrine:schema:update --force
+	docker-compose -f docker-compose.dev.yml exec backend php bin/console doctrine:schema:update --force
 
 # Testing
 test: test-backend test-frontend
 
 test-backend:
-	docker-compose exec backend php bin/phpunit
+	docker-compose -f docker-compose.dev.yml exec backend php bin/phpunit
 
 test-frontend:
-	docker-compose exec frontend npm test
+	docker-compose -f docker-compose.dev.yml exec frontend npm test
 
 test-unit:
-	docker-compose exec backend php bin/phpunit --testsuite=unit
+	docker-compose -f docker-compose.dev.yml exec backend php bin/phpunit --testsuite=unit
 
 test-integration:
-	docker-compose exec backend php bin/phpunit --testsuite=integration
+	docker-compose -f docker-compose.dev.yml exec backend php bin/phpunit --testsuite=integration
 
 test-coverage:
-	docker-compose exec backend php bin/phpunit --coverage-html coverage/
+	docker-compose -f docker-compose.dev.yml exec backend php bin/phpunit --coverage-html coverage/
 
 # Code Quality
 lint:
-	docker-compose exec backend ./vendor/bin/php-cs-fixer fix --dry-run --diff
-	docker-compose exec frontend npm run lint
+	docker-compose -f docker-compose.dev.yml exec backend ./vendor/bin/php-cs-fixer fix --dry-run --diff
+	docker-compose -f docker-compose.dev.yml exec frontend npm run lint
 
 fix:
-	docker-compose exec backend ./vendor/bin/php-cs-fixer fix
-	docker-compose exec frontend npm run lint:fix
+	docker-compose -f docker-compose.dev.yml exec backend ./vendor/bin/php-cs-fixer fix
+	docker-compose -f docker-compose.dev.yml exec frontend npm run lint:fix
 
 # Shell Access
 shell-backend:
-	docker-compose exec backend bash
+	docker-compose -f docker-compose.dev.yml exec backend bash
 
 shell-frontend:
-	docker-compose exec frontend sh
+	docker-compose -f docker-compose.dev.yml exec frontend sh
 
 shell-database:
-	docker-compose exec database psql -U admin -d ecommerce
+	docker-compose -f docker-compose.dev.yml exec database psql -U admin -d ecommerce
 
 # Build and Deploy
 build:
+	docker-compose -f docker-compose.dev.yml build
+
+build-prod:
 	docker-compose build
 
 clean:
-	docker-compose down -v
+	docker-compose -f docker-compose.dev.yml down -v
 	docker system prune -f
