@@ -39,4 +39,4 @@ RUN chmod -R 775 /app/var
 EXPOSE $PORT
 
 # Start PHP development server
-CMD php -S 0.0.0.0:$PORT -t public
+CMD php -S 0.0.0.0:${PORT:-8080} -t public
