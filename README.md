@@ -100,7 +100,7 @@ Utilisez ces identifiants pour tester l'application :
 2. **Connexion** : http://localhost:4200/login - Authentification utilisateur
 3. **Inscription** : http://localhost:4200/register - Création de compte
 4. **Panier** : http://localhost:4200/cart - Gestion du panier
-5. **Profil** : http://localhost:4200/profile - Informations utilisateur
+5. **Commandes** : http://localhost:4200/orders - Les commandes de l'utilisateur
 
 ## 🔧 Commandes Utiles
 
@@ -113,14 +113,6 @@ make test               # Exécuter les tests
 make shell-backend      # Accès shell backend
 make shell-frontend     # Accès shell frontend
 ```
-
-## 📊 Données de Test
-
-**Compte de démonstration :**
-- Email: `test@example.com`
-- Password: `password123`
-
-**8 produits** dans différentes catégories (Electronics, Clothing, Books, etc.)
 
 ## 🏆 Compétences Démontrées
 
@@ -151,7 +143,6 @@ make shell-frontend     # Accès shell frontend
 |---------|------|-----|
 | Frontend | 4200 | http://localhost:4200 |
 | API | 8000 | http://localhost:8000 |
-| API Doc | 8000 | http://localhost:8000/api/doc |
 | Database | 5432 | localhost:5432 |
 
 ## 🎯 Architecture
