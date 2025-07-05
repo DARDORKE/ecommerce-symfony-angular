@@ -27,8 +27,14 @@ backend/var/
 backend/vendor/
 backend/.env.local
 backend/.env.*.local
+backend/.env.test.local
 backend/public/bundles/
 backend/public/uploads/
+backend/symfony.lock
+backend/.phpunit.result.cache
+backend/phpunit.xml.dist
+backend/tests/_output/
+backend/tests/_support/_generated/
 
 # Frontend (Angular)
 frontend/node_modules/
@@ -38,42 +44,87 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
 frontend/.vercel
+frontend/.nyc_output/
+frontend/e2e/reports/
+frontend/.karma-output/
+frontend/.stylelintcache
+frontend/.eslintcache
 
 # Docker
 .docker/
+docker-compose.override.yml
+docker-data/
+*.env.docker
 
 # Logs
 *.log
 logs/
+laravel.log
+storage/logs/
 
 # Database
 *.sqlite
 *.db
+*.sql
+database.db
+*.dump
 
 # Temporary files
 *.tmp
 *.temp
+*.bak
+*.backup
+*.orig
 
 # Cache
 .cache/
+.npm/
+.yarn-integrity
+.parcel-cache/
 
 # Coverage reports
 coverage/
 *.lcov
+htmlcov/
+.coverage
+.pytest_cache/
+.tox/
 
 # Build artifacts
 build/
 dist/
+out/
+.next/
+.nuxt/
 
 # Package manager
 package-lock.json
 yarn.lock
 composer.lock
+pnpm-lock.yaml
 
 # Security
 *.pem
 *.key
 *.crt
+*.p12
+.secrets/
+auth.json
+
+# Development files
+.phpintel/
+.php_cs.cache
+.php-cs-fixer.cache
+*.patch
+*.diff
+.vs/
+
+# Runtime files
+*.pid
+.pm2/
+
+# OS specific
+*.lnk
 
 CLAUDE.md
 .claude

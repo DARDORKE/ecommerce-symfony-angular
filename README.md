@@ -25,7 +25,7 @@ Démonstration d'expertise **full-stack moderne** avec architecture robuste, sé
 ### Backend (Symfony 7)
 - **API REST** avec API Platform
 - **PostgreSQL** + Doctrine ORM
-- **JWT Authentication** 
+- **JWT Authentication**
 - **Redis** pour le cache
 - **Validation** multicouche
 
@@ -41,27 +41,66 @@ Démonstration d'expertise **full-stack moderne** avec architecture robuste, sé
 - **Multi-stage builds** optimisés
 - **Orchestration** multi-services
 
-## 🚀 Installation Rapide
+## 📋 Prérequis
+
+Avant d'installer le projet, assurez-vous d'avoir les outils suivants installés :
+
+- **Docker** (version 20.10+) - [Installation](https://docs.docker.com/get-docker/)
+- **Docker Compose** (version 2.0+) - [Installation](https://docs.docker.com/compose/install/)
+- **Make** - Généralement préinstallé sur Linux/macOS, [Installation Windows](https://gnuwin32.sourceforge.net/packages/make.htm)
+- **Git** - [Installation](https://git-scm.com/downloads)
+
+### Vérification des prérequis
+```bash
+docker --version          # Docker version 20.10+
+docker-compose --version  # Docker Compose version 2.0+
+make --version            # GNU Make 4.0+
+git --version             # Git 2.0+
+```
+
+## 🚀 Installation & Démarrage
 
 ```bash
-# Cloner le projet
+# 1. Cloner le projet
 git clone https://github.com/DARDORKE/ecommerce-symfony-angular.git
 cd ecommerce-symfony-angular
 
-# Démarrer l'environnement complet
+# 2. Démarrer l'environnement complet
 make dev-start
 
-# Installer les dépendances
+# 3. Installer les dépendances
 make install
 
-# Initialiser la base de données
+# 4. Initialiser la base de données
 make db-create db-schema-update db-fixtures
-
-# ✅ Accéder à l'application
-# Frontend: http://localhost:4200
-# API: http://localhost:8000
-# Documentation: http://localhost:8000/api/doc
 ```
+
+## 🌐 Accès aux Services
+
+Une fois l'installation terminée, les services sont accessibles aux adresses suivantes :
+
+### 🎯 **Applications Principales**
+- **🖥️ Frontend (Interface utilisateur)** : http://localhost:4200
+- **🔗 API Backend** : http://localhost:8000
+- **📚 Documentation API** : http://localhost:8000/api/doc
+
+### 🔑 **Connexion de Test**
+Utilisez ces identifiants pour tester l'application :
+- **Email** : `test@example.com`
+- **Mot de passe** : `password123`
+
+### 🛠️ **Services de Développement**
+- **📊 Base de données PostgreSQL** : `localhost:5432`
+    - Database: `ecommerce`
+    - User: `ecommerce_user`
+    - Password: `ecommerce_password`
+
+### 📱 **Navigation de l'Application**
+1. **Page d'accueil** : http://localhost:4200 - Catalogue des produits
+2. **Connexion** : http://localhost:4200/login - Authentification utilisateur
+3. **Inscription** : http://localhost:4200/register - Création de compte
+4. **Panier** : http://localhost:4200/cart - Gestion du panier
+5. **Profil** : http://localhost:4200/profile - Informations utilisateur
 
 ## 🔧 Commandes Utiles
 
