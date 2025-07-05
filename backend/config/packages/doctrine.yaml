@@ -6,6 +6,10 @@ doctrine:
         server_version: '15'
         mapping_types:
             regclass: string
+            _text: text
+            _varchar: string
+            _int4: integer
+            _int8: bigint
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
