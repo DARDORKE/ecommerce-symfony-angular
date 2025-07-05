@@ -68,4 +68,25 @@ class AuthController extends AbstractController
         $data = $this->serializer->serialize($user, 'json', ['groups' => 'user:read']);
         return JsonResponse::fromJsonString($data);
     }
+
+    #[Route('/test-auth', name: 'test_auth', methods: ['GET'])]
+    public function testAuth(): JsonResponse
+    {
+        // Test endpoint to check if authentication works
+        return $this->json([
+            'message' => 'Authentication endpoint is working',
+            'login_url' => '/api/login_check',
+            'method' => 'POST',
+            'expected_body' => [
+                'username' => 'admin@example.com',
+                'password' => 'admin123'
+            ],
+            'jwt_config' => [
+                'private_key_exists' => file_exists('/app/config/jwt-prod/private.pem'),
+                'public_key_exists' => file_exists('/app/config/jwt-prod/public.pem'),
+                'env_jwt_secret_key' => $_ENV['JWT_SECRET_KEY'] ?? 'NOT_SET',
+                'env_jwt_passphrase' => $_ENV['JWT_PASSPHRASE'] ?? 'NOT_SET'
+            ]
+        ]);
+    }
 }
