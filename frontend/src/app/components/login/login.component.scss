@@ -35,7 +35,7 @@
   border-radius: var(--border-radius-lg) !important;
   box-shadow: var(--shadow-xl) !important;
   border: 1px solid var(--gray-200);
-  background: var(--white);
+  background: var(--surface-secondary);
   overflow: hidden;
   
   &::before {
@@ -52,7 +52,7 @@
 .login-header {
   text-align: center;
   padding: 48px 48px 24px;
-  background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+  background: linear-gradient(135deg, var(--surface-secondary) 0%, var(--gray-100) 100%);
   
   .login-icon {
     display: inline-flex;
@@ -90,14 +90,14 @@
   .login-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--gray-800);
+    color: #e2e8f0;
     margin: 0 0 8px 0;
     line-height: 1.2;
   }
   
   .login-subtitle {
     font-size: 1rem;
-    color: var(--gray-600);
+    color: #94a3b8;
     margin: 0;
     line-height: 1.4;
   }
@@ -119,7 +119,7 @@
     
     ::ng-deep {
       .mat-mdc-form-field {
-        background: var(--white);
+        background: var(--surface-secondary);
         border-radius: var(--border-radius-sm);
         transition: all var(--transition-fast);
         
@@ -133,7 +133,7 @@
           transform: translateY(-2px);
           
           .mdc-notched-outline {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(20, 184, 166, 0.05));
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
           }
         }
         
@@ -153,10 +153,7 @@
           .mdc-notched-outline__leading,
           .mdc-notched-outline__notch,
           .mdc-notched-outline__trailing {
-            border-color: transparent !important;
-            background: linear-gradient(var(--white), var(--white)) padding-box,
-                       linear-gradient(135deg, var(--primary-color), var(--secondary-color)) border-box;
-            border: 2px solid transparent;
+            border: 2px solid var(--primary-color) !important;
           }
         }
         
@@ -197,7 +194,7 @@
       
       &:hover {
         color: var(--primary-color);
-        background-color: rgba(139, 92, 246, 0.1);
+        background-color: rgba(6, 182, 212, 0.1);
         transform: scale(1.1);
       }
       
@@ -214,7 +211,7 @@
   border-radius: var(--border-radius-sm) !important;
   font-weight: 600;
   font-size: 1rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
   color: var(--white) !important;
   box-shadow: var(--shadow-primary);
   transition: all var(--transition-fast);
@@ -268,7 +265,7 @@
   border-top: 1px solid var(--gray-200);
   
   .register-text {
-    color: var(--gray-600);
+    color: #94a3b8;
     font-size: 0.9rem;
     margin: 0 0 16px 0;
   }

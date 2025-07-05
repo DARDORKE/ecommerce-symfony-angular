@@ -26,6 +26,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
@@ -38,6 +39,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ProductListComponent,
     ProductCardComponent,
     CartComponent,
+    CartPopupComponent,
     LoginComponent,
     RegisterComponent,
     OrderListComponent

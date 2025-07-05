@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Product } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';
+import { CartPopupComponent, CartPopupData } from '../cart-popup/cart-popup.component';
 
 @Component({
   selector: 'app-product-card',
@@ -13,16 +14,29 @@ export class ProductCardComponent {
 
   constructor(
     private cartService: CartService,
-    private snackBar: MatSnackBar
+    private dialog: MatDialog
   ) {}
 
   addToCart(): void {
     if (this.product.stock > 0) {
-      this.cartService.addToCart(this.product, 1);
-      this.snackBar.open('Produit ajouté au panier', 'Fermer', {
-        duration: 2000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top'
+      const quantity = 1;
+      this.cartService.addToCart(this.product, quantity);
+      
+      const dialogData: CartPopupData = {
+        product: this.product,
+        quantity: quantity
+      };
+      
+      this.dialog.open(CartPopupComponent, {
+        data: dialogData,
+        panelClass: 'cart-popup-dialog',
+        maxWidth: 'calc(100vw - 32px)',
+        width: 'auto',
+        maxHeight: '95vh',
+        autoFocus: false,
+        restoreFocus: false,
+        hasBackdrop: true,
+        disableClose: false
       });
     }
   }

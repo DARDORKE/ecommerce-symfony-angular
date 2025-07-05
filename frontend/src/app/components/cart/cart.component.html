@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container-fluid px-3 px-md-4">
   <div class="row">
     <div class="col-12">
-      <h1 class="mb-4">Mon Panier</h1>
+      <h1 class="mb-3 mb-md-4 fs-4 fs-md-2">Mon Panier</h1>
     </div>
   </div>
 
@@ -15,50 +15,96 @@
   </div>
 
   <div *ngIf="(cartItems$ | async)?.length! > 0">
-    <div class="row">
-      <div class="col-md-8">
-        <mat-card class="mb-4">
-          <mat-card-header>
-            <mat-card-title>Produits ({{ (cartItems$ | async)?.length }})</mat-card-title>
-            <button mat-button color="warn" (click)="clearCart()" class="ms-auto">
-              Vider le panier
+    <div class="row g-3 g-md-4">
+      <div class="col-12 col-lg-8">
+        <mat-card class="cart-items-card">
+          <mat-card-header class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center w-100">
+            <mat-card-title class="mb-2 mb-sm-0 flex-grow-1">Produits ({{ (cartItems$ | async)?.length }})</mat-card-title>
+            <button mat-button color="warn" (click)="clearCart()" class="clear-cart-btn">
+              <mat-icon class="d-inline d-sm-none">clear</mat-icon>
+              <span class="d-none d-sm-inline">Vider le panier</span>
+              <span class="d-inline d-sm-none">Vider</span>
             </button>
           </mat-card-header>
           
-          <mat-card-content>
-            <div *ngFor="let item of cartItems$ | async" class="cart-item">
-              <div class="row align-items-center">
-                <div class="col-md-2">
-                  <img [src]="item.product.image || 'assets/images/no-image.png'" 
-                       [alt]="item.product.name" 
-                       class="img-fluid rounded">
+          <mat-card-content class="p-0">
+            <div *ngFor="let item of cartItems$ | async; let last = last" class="cart-item" [class.border-bottom-0]="last">
+              <!-- Mobile Layout -->
+              <div class="d-block d-md-none mobile-cart-item">
+                <div class="d-flex gap-3 mb-3">
+                  <div class="product-image-mobile">
+                    <img [src]="item.product.image || 'assets/images/no-image.png'" 
+                         [alt]="item.product.name" 
+                         class="img-fluid rounded">
+                  </div>
+                  <div class="flex-grow-1 min-w-0">
+                    <h6 class="product-name mb-1">{{ item.product.name }}</h6>
+                    <small class="text-muted d-block mb-2">{{ item.product.category }}</small>
+                    <div class="price-mobile fw-bold text-primary">{{ item.product.price | currency:'EUR':'symbol':'1.2-2' }}</div>
+                  </div>
+                  <button mat-icon-button color="warn" (click)="removeItem(item.product.id)" class="delete-btn-mobile">
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </div>
-                <div class="col-md-4">
-                  <h6>{{ item.product.name }}</h6>
-                  <small class="text-muted">{{ item.product.category }}</small>
-                </div>
-                <div class="col-md-2">
-                  <span class="fw-bold">{{ item.product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
-                </div>
-                <div class="col-md-3">
-                  <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="quantity-controls-mobile">
                     <button mat-icon-button 
                             (click)="updateQuantity(item.product.id, item.quantity - 1)"
-                            [disabled]="item.quantity <= 1">
+                            [disabled]="item.quantity <= 1"
+                            class="quantity-btn">
                       <mat-icon>remove</mat-icon>
                     </button>
-                    <span class="mx-2">{{ item.quantity }}</span>
+                    <span class="quantity-display">{{ item.quantity }}</span>
                     <button mat-icon-button 
                             (click)="updateQuantity(item.product.id, item.quantity + 1)"
-                            [disabled]="item.quantity >= item.product.stock">
+                            [disabled]="item.quantity >= item.product.stock"
+                            class="quantity-btn">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>
+                  <div class="total-price-mobile fw-bold">{{ getItemTotal(item) | currency:'EUR':'symbol':'1.2-2' }}</div>
                 </div>
-                <div class="col-md-1">
-                  <button mat-icon-button color="warn" (click)="removeItem(item.product.id)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+              </div>
+              
+              <!-- Desktop Layout -->
+              <div class="d-none d-md-block desktop-cart-item">
+                <div class="row align-items-center g-3">
+                  <div class="col-md-2">
+                    <div class="product-image-desktop">
+                      <img [src]="item.product.image || 'assets/images/no-image.png'" 
+                           [alt]="item.product.name" 
+                           class="img-fluid rounded">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <h6 class="product-name mb-1">{{ item.product.name }}</h6>
+                    <small class="text-muted">{{ item.product.category }}</small>
+                  </div>
+                  <div class="col-md-2">
+                    <span class="fw-bold price-desktop">{{ item.product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="quantity-controls-desktop">
+                      <button mat-icon-button 
+                              (click)="updateQuantity(item.product.id, item.quantity - 1)"
+                              [disabled]="item.quantity <= 1"
+                              class="quantity-btn">
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                      <span class="quantity-display">{{ item.quantity }}</span>
+                      <button mat-icon-button 
+                              (click)="updateQuantity(item.product.id, item.quantity + 1)"
+                              [disabled]="item.quantity >= item.product.stock"
+                              class="quantity-btn">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <button mat-icon-button color="warn" (click)="removeItem(item.product.id)" class="delete-btn-desktop">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,34 +112,34 @@
         </mat-card>
       </div>
 
-      <div class="col-md-4">
-        <mat-card>
+      <div class="col-12 col-lg-4">
+        <mat-card class="order-summary-card position-sticky" style="top: 100px;">
           <mat-card-header>
-            <mat-card-title>Résumé de la commande</mat-card-title>
+            <mat-card-title class="fs-5">Résumé de la commande</mat-card-title>
           </mat-card-header>
           
           <mat-card-content>
-            <div class="d-flex justify-content-between mb-3">
+            <div class="summary-row">
               <span>Sous-total:</span>
-              <span>{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <span class="fw-semibold">{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</span>
             </div>
-            <div class="d-flex justify-content-between mb-3">
+            <div class="summary-row">
               <span>Livraison:</span>
-              <span>Gratuite</span>
+              <span class="text-success fw-semibold">Gratuite</span>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between mb-3">
-              <strong>Total:</strong>
-              <strong>{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</strong>
+            <hr class="my-3">
+            <div class="summary-row total-row">
+              <strong class="fs-5">Total:</strong>
+              <strong class="fs-5 text-primary">{{ (total$ | async) | currency:'EUR':'symbol':'1.2-2' }}</strong>
             </div>
             
             <button mat-raised-button 
                     color="primary" 
-                    class="w-100"
+                    class="w-100 checkout-btn mt-4"
                     [disabled]="loading"
                     (click)="checkout()">
               <mat-spinner diameter="20" *ngIf="loading" class="me-2"></mat-spinner>
-              {{ loading ? 'Traitement...' : 'Passer la commande' }}
+              <span>{{ loading ? 'Traitement...' : 'Passer la commande' }}</span>
             </button>
           </mat-card-content>
         </mat-card>

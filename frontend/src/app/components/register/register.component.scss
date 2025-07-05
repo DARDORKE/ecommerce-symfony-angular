@@ -15,8 +15,8 @@
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 15% 35%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.08) 0%, transparent 50%);
+      radial-gradient(circle at 15% 35%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 85% 65%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
 }
@@ -35,7 +35,7 @@
   border-radius: var(--border-radius-lg) !important;
   box-shadow: var(--shadow-xl) !important;
   border: 1px solid var(--gray-200);
-  background: var(--white);
+  background: var(--surface-secondary);
   overflow: hidden;
   
   &::before {
@@ -45,14 +45,14 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-secondary));
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   }
 }
 
 .register-header {
   text-align: center;
   padding: 48px 48px 24px;
-  background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+  background: linear-gradient(135deg, var(--surface-secondary) 0%, var(--gray-100) 100%);
   
   .register-icon {
     display: inline-flex;
@@ -90,14 +90,14 @@
   .register-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--gray-800);
+    color: #e2e8f0;
     margin: 0 0 8px 0;
     line-height: 1.2;
   }
   
   .register-subtitle {
     font-size: 1rem;
-    color: var(--gray-600);
+    color: #94a3b8;
     margin: 0;
     line-height: 1.4;
   }
@@ -129,7 +129,7 @@
     
     ::ng-deep {
       .mat-mdc-form-field {
-        background: var(--white);
+        background: var(--surface-secondary);
         border-radius: var(--border-radius-sm);
         transition: all var(--transition-fast);
         
@@ -143,7 +143,7 @@
           transform: translateY(-2px);
           
           .mdc-notched-outline {
-            background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(139, 92, 246, 0.05));
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
           }
         }
         
@@ -204,7 +204,7 @@
       
       &:hover {
         color: var(--secondary-color);
-        background-color: rgba(20, 184, 166, 0.1);
+        background-color: rgba(139, 92, 246, 0.1);
         transform: scale(1.1);
       }
       
@@ -217,7 +217,7 @@
 
 // Password Requirements
 .password-requirements {
-  background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+  background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
   border: 1px solid var(--gray-200);
   border-radius: var(--border-radius-sm);
   padding: 16px;
@@ -227,7 +227,7 @@
   .requirements-title {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--gray-700);
+    color: #cbd5e1;
     margin: 0 0 8px 0;
   }
   
@@ -241,7 +241,7 @@
     
     li {
       font-size: 0.8rem;
-      color: var(--gray-500);
+      color: #94a3b8;
       display: flex;
       align-items: center;
       transition: all var(--transition-fast);
@@ -327,7 +327,7 @@
   border-top: 1px solid var(--gray-200);
   
   .login-text {
-    color: var(--gray-600);
+    color: #94a3b8;
     font-size: 0.9rem;
     margin: 0 0 16px 0;
   }

@@ -9,77 +9,92 @@
 
   <!-- Filters Section -->
   <div class="filters-section">
-    <div class="filters-container">
-      <div class="filters-header">
-        <h2 class="filters-title">Filtrer les produits</h2>
-        <button mat-button 
-                class="clear-filters-btn" 
-                (click)="clearFilters()"
-                [disabled]="!hasActiveFilters()">
-          <mat-icon>clear_all</mat-icon>
-          <span>Effacer tout</span>
-        </button>
-      </div>
-      
-      <div class="filters-row">
-        <div class="filter-item search-filter">
-          <mat-form-field class="search-field" appearance="outline">
-            <mat-label>Rechercher un produit</mat-label>
-            <input matInput 
-                   [(ngModel)]="searchTerm" 
-                   (keyup.enter)="onSearch()" 
-                   placeholder="Nom, description..."
-                   #searchInput>
-            <button mat-icon-button matSuffix (click)="onSearch()" class="search-btn">
-              <mat-icon>search</mat-icon>
+    <div class="container-fluid">
+      <div class="filters-container">
+        <div class="filters-header d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+          <h2 class="filters-title mb-2 mb-sm-0">Filtrer les produits</h2>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary d-lg-none filter-toggle-btn" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#filtersCollapse" 
+                    aria-expanded="false" 
+                    aria-controls="filtersCollapse">
+              <mat-icon>tune</mat-icon>
+              <span class="ms-1">Filtres</span>
             </button>
-            <button mat-icon-button 
-                    matSuffix 
-                    (click)="clearSearch()" 
-                    *ngIf="searchTerm"
-                    class="clear-search-btn">
-              <mat-icon>close</mat-icon>
+            <button mat-button 
+                    class="clear-filters-btn" 
+                    (click)="clearFilters()"
+                    [disabled]="!hasActiveFilters()">
+              <mat-icon>clear_all</mat-icon>
+              <span class="d-none d-sm-inline">Effacer tout</span>
             </button>
-          </mat-form-field>
+          </div>
         </div>
         
-        <div class="filter-item category-filter">
-          <mat-form-field class="category-field" appearance="outline">
-            <mat-label>Catégorie</mat-label>
-            <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
-              <mat-option value="">
-                <mat-icon>apps</mat-icon>
-                <span>Toutes les catégories</span>
-              </mat-option>
-              <mat-option *ngFor="let category of categories$ | async" [value]="category">
-                <span>{{ category }}</span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        
-        <div class="filter-item sort-filter">
-          <mat-form-field class="sort-field" appearance="outline">
-            <mat-label>Trier par</mat-label>
-            <mat-select [(value)]="sortBy" (selectionChange)="onSortChange($event.value)">
-              <mat-option value="">
-                <mat-icon>sort</mat-icon>
-                <span>Par défaut</span>
-              </mat-option>
-              <mat-option value="price_asc">
-                <mat-icon>trending_up</mat-icon>
-                <span>Prix croissant</span>
-              </mat-option>
-              <mat-option value="price_desc">
-                <mat-icon>trending_down</mat-icon>
-                <span>Prix décroissant</span>
-              </mat-option>
-              <mat-option value="name">
-                <mat-icon>sort_by_alpha</mat-icon>
-                <span>Nom A-Z</span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="collapse show" id="filtersCollapse">
+          <div class="filters-row row g-3 mt-2">
+            <div class="col-12 col-lg-6 filter-item search-filter">
+              <mat-form-field class="search-field w-100" appearance="outline">
+                <mat-label>Rechercher un produit</mat-label>
+                <input matInput 
+                       [(ngModel)]="searchTerm" 
+                       (keyup.enter)="onSearch()" 
+                       placeholder="Nom, description..."
+                       #searchInput>
+                <button mat-icon-button matSuffix (click)="onSearch()" class="search-btn">
+                  <mat-icon>search</mat-icon>
+                </button>
+                <button mat-icon-button 
+                        matSuffix 
+                        (click)="clearSearch()" 
+                        *ngIf="searchTerm"
+                        class="clear-search-btn">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-lg-3 filter-item category-filter">
+              <mat-form-field class="category-field w-100" appearance="outline">
+                <mat-label>Catégorie</mat-label>
+                <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
+                  <mat-option value="">
+                    <mat-icon>apps</mat-icon>
+                    <span>Toutes les catégories</span>
+                  </mat-option>
+                  <mat-option *ngFor="let category of categories$ | async" [value]="category">
+                    <span>{{ category }}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-lg-3 filter-item sort-filter">
+              <mat-form-field class="sort-field w-100" appearance="outline">
+                <mat-label>Trier par</mat-label>
+                <mat-select [(value)]="sortBy" (selectionChange)="onSortChange($event.value)">
+                  <mat-option value="">
+                    <mat-icon>sort</mat-icon>
+                    <span>Par défaut</span>
+                  </mat-option>
+                  <mat-option value="price_asc">
+                    <mat-icon>trending_up</mat-icon>
+                    <span>Prix croissant</span>
+                  </mat-option>
+                  <mat-option value="price_desc">
+                    <mat-icon>trending_down</mat-icon>
+                    <span>Prix décroissant</span>
+                  </mat-option>
+                  <mat-option value="name">
+                    <mat-icon>sort_by_alpha</mat-icon>
+                    <span>Nom A-Z</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </div>
       </div>
     </div>

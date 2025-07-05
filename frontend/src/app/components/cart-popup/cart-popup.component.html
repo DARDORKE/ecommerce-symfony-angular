@@ -1,0 +1,53 @@
+<div class="cart-popup">
+  <!-- Header -->
+  <div class="popup-header">
+    <div class="success-icon">
+      <mat-icon>check_circle</mat-icon>
+    </div>
+    <h2 class="popup-title">Produit ajouté au panier !</h2>
+    <button mat-icon-button class="close-btn" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Product Info -->
+  <div class="popup-content">
+    <div class="product-info">
+      <div class="product-image">
+        <img [src]="getImageUrl()" [alt]="data.product.name" />
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ data.product.name }}</h3>
+        <p class="product-price">{{ data.product.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+        <p class="quantity-info">
+          <span class="label">Quantité :</span>
+          <span class="value">{{ data.quantity }}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span class="label">Articles dans le panier :</span>
+        <span class="value">{{ cartItemCount$ | async }}</span>
+      </div>
+      <div class="summary-row total">
+        <span class="label">Total :</span>
+        <span class="value">{{ cartTotal$ | async | currency:'EUR':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="popup-actions">
+    <button mat-button class="continue-btn" (click)="continueShopping()">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Continuer</span>
+    </button>
+    <button mat-raised-button class="cart-btn" color="primary" (click)="goToCart()">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Voir le panier</span>
+    </button>
+  </div>
+</div>

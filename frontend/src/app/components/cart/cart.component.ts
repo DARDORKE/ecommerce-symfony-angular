@@ -48,6 +48,10 @@ export class CartComponent implements OnInit {
     this.snackBar.open('Panier vidé', 'Fermer', { duration: 2000 });
   }
 
+  getItemTotal(item: CartItem): number {
+    return parseFloat(item.product.price) * item.quantity;
+  }
+
   checkout(): void {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);

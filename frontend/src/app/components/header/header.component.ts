@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) {
     this.currentUser$ = this.authService.currentUser$;
     this.cartItemCount$ = this.cartService.getCartItemCount();
@@ -38,5 +39,19 @@ export class HeaderComponent implements OnInit {
       return user.email.split('@')[0];
     }
     return 'Utilisateur';
+  }
+
+  closeNavbar(): void {
+    const navbarCollapse = this.elementRef.nativeElement.querySelector('#navbarNav');
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, {
+        toggle: false
+      });
+      bsCollapse.hide();
+    }
+  }
+
+  onNavClick(): void {
+    this.closeNavbar();
   }
 }
