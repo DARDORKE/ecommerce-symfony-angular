@@ -10,6 +10,15 @@ doctrine:
             _varchar: string
             _int4: integer
             _int8: bigint
+            aal_level: string
+            factor_type: string
+            factor_status: string
+            code_challenge_method: string
+            one_time_token_type: string
+            key_status: string
+            key_type: string
+            _uuid: guid
+            uuid: guid
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
