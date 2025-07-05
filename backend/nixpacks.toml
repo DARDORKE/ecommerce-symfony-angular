@@ -1,0 +1,10 @@
+[variables]
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader",
+]
+
+[phases.start]
+cmd = "php -S 0.0.0.0:$PORT -t public"
