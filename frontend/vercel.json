@@ -22,7 +22,10 @@
       "dest": "/index.html"
     }
   ],
-  "buildCommand": "npm ci && npm run build",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "buildCommand": "npm run build:prod",
   "outputDirectory": "dist/ecommerce-frontend",
   "installCommand": "npm ci"
 }
