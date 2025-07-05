@@ -22,8 +22,8 @@ WORKDIR /app
 COPY composer.json ./
 COPY composer.lock* ./
 
-# Update composer.lock and install dependencies
-RUN composer update phpstan/phpdoc-parser --no-scripts --optimize-autoloader
+# Install dependencies and update phpstan/phpdoc-parser
+RUN composer install --no-scripts --optimize-autoloader --ignore-platform-reqs
 
 # Copy application code
 COPY . .
