@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8), this.passwordValidator]]
     });
   }
 
@@ -54,6 +54,44 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  passwordValidator(control: any) {
+    const value = control.value;
+    if (!value) return null;
+    
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasMinLength = value.length >= 8;
+    
+    const valid = hasUpperCase && hasLowerCase && hasNumber && hasMinLength;
+    
+    if (!valid) {
+      return { invalidPassword: true };
+    }
+    
+    return null;
+  }
+
+  hasMinLength(): boolean {
+    const password = this.registerForm.get('password')?.value || '';
+    return password.length >= 8;
+  }
+
+  hasUpperCase(): boolean {
+    const password = this.registerForm.get('password')?.value || '';
+    return /[A-Z]/.test(password);
+  }
+
+  hasLowerCase(): boolean {
+    const password = this.registerForm.get('password')?.value || '';
+    return /[a-z]/.test(password);
+  }
+
+  hasNumber(): boolean {
+    const password = this.registerForm.get('password')?.value || '';
+    return /\d/.test(password);
+  }
+
   getErrorMessage(field: string): string {
     const control = this.registerForm.get(field);
     if (control?.hasError('required')) {
@@ -71,6 +109,9 @@ export class RegisterComponent implements OnInit {
     if (control?.hasError('minlength')) {
       const minLength = control.getError('minlength').requiredLength;
       return `Minimum ${minLength} caractères requis`;
+    }
+    if (control?.hasError('invalidPassword')) {
+      return 'Le mot de passe ne respecte pas les critères requis';
     }
     return '';
   }
