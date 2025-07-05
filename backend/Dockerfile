@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -33,10 +33,10 @@ RUN composer dump-autoload --optimize
 
 # Create necessary directories and set permissions
 RUN mkdir -p /app/var/cache /app/var/log /app/var/sessions
-RUN chown -R www-data:www-data /app/var /app/public
 RUN chmod -R 775 /app/var
 
-# Expose port 9000 for PHP-FPM
-EXPOSE 9000
+# Expose the port
+EXPOSE $PORT
 
-CMD ["php-fpm"]
+# Start PHP development server
+CMD php -S 0.0.0.0:$PORT -t public
