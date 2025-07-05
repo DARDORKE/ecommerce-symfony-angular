@@ -82,7 +82,6 @@ Une fois l'installation terminée, les services sont accessibles aux adresses su
 ### 🎯 **Applications Principales**
 - **🖥️ Frontend (Interface utilisateur)** : http://localhost:4200
 - **🔗 API Backend** : http://localhost:8000
-- **📚 Documentation API** : http://localhost:8000/api/doc
 
 ### 🔑 **Connexion de Test**
 Utilisez ces identifiants pour tester l'application :
