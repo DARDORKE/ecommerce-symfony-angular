@@ -1,0 +1,16 @@
+vendor
+node_modules
+.git
+.env*
+*.log
+var/cache
+var/log
+var/sessions
+.vscode
+.idea
+*.tgz
+*.tar.gz
+Thumbs.db
+.DS_Store
+tests
+.phpunit.result.cache
