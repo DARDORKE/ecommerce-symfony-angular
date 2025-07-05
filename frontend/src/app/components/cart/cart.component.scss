@@ -9,6 +9,7 @@
   border-radius: var(--border-radius) !important;
   box-shadow: var(--shadow) !important;
   overflow: hidden;
+  background: var(--surface-secondary);
   
   .mat-mdc-card-header {
     background: var(--gray-100);
@@ -62,7 +63,7 @@
   transition: background-color var(--transition-fast);
   
   &:hover {
-    background-color: var(--gray-50);
+    background-color: var(--gray-100);
   }
   
   &.border-bottom-0 {
@@ -270,6 +271,7 @@
 .order-summary-card {
   border-radius: var(--border-radius) !important;
   box-shadow: var(--shadow) !important;
+  background: var(--surface-secondary);
   
   @media (min-width: 992px) {
     position: sticky !important;
@@ -277,7 +279,7 @@
   }
   
   .mat-mdc-card-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     
@@ -317,7 +319,7 @@
     font-size: 1rem !important;
     font-weight: 600 !important;
     border-radius: var(--border-radius-sm) !important;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
     box-shadow: var(--shadow-primary) !important;
     transition: all var(--transition-fast) !important;
     
@@ -328,8 +330,8 @@
     }
     
     &:disabled {
-      background: var(--gray-300) !important;
-      color: var(--gray-500) !important;
+      background: var(--gray-200) !important;
+      color: var(--gray-400) !important;
       box-shadow: none !important;
     }
     
@@ -343,22 +345,26 @@
 }
 
 // Empty Cart State
-.text-center.py-5 {
+.text-center.py-5,
+.empty-cart-container,
+.empty-cart-state {
   padding: 60px 20px !important;
+  background: var(--surface-secondary) !important;
+  border-radius: var(--border-radius);
   
   mat-icon {
-    color: var(--gray-300) !important;
+    color: var(--gray-400) !important;
     margin-bottom: 20px;
   }
   
-  h3 {
-    color: #94a3b8;
-    font-weight: 600;
+  h3, .empty-title {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
     margin-bottom: 12px;
   }
   
-  p {
-    color: #94a3b8;
+  p, .empty-message {
+    color: #cbd5e1 !important;
     font-size: 1rem;
     margin-bottom: 24px;
   }
@@ -367,6 +373,17 @@
     padding: 12px 24px !important;
     font-weight: 600 !important;
     border-radius: var(--border-radius-sm) !important;
+  }
+}
+
+// Fallback pour tous les textes dans un conteneur de panier vide
+.container-fluid .text-center {
+  h1, h2, h3, h4, h5, h6 {
+    color: #e2e8f0 !important;
+  }
+  
+  p, span, div {
+    color: #cbd5e1 !important;
   }
 }
 

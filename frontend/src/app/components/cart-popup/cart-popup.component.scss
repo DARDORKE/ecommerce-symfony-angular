@@ -5,6 +5,7 @@
   overflow: hidden;
   margin: 0;
   box-sizing: border-box;
+  background: var(--surface-secondary);
   
   @media (max-width: 575.98px) {
     border-radius: var(--border-radius-sm);
@@ -28,7 +29,7 @@
 
 // Header
 .popup-header {
-  background: linear-gradient(135deg, var(--success-color), #34d399);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   color: var(--white);
   padding: 16px 20px;
   position: relative;
@@ -107,6 +108,7 @@
 // Content
 .popup-content {
   padding: 12px 16px;
+  background: var(--surface-secondary);
   
   @media (min-width: 576px) {
     padding: 20px 28px;
@@ -141,7 +143,7 @@
     height: 60px;
     border-radius: var(--border-radius-sm);
     overflow: hidden;
-    background: var(--gray-100);
+    background: var(--gray-200);
     
     @media (min-width: 576px) {
       width: 80px;
@@ -172,7 +174,7 @@
     .product-name {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--gray-800);
+      color: #e2e8f0;
       margin: 0 0 6px 0;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -202,7 +204,7 @@
     
     .quantity-info {
       font-size: 0.85rem;
-      color: var(--gray-600);
+      color: #94a3b8;
       margin: 0;
       
       @media (min-width: 576px) {
@@ -215,7 +217,7 @@
       
       .value {
         font-weight: 600;
-        color: var(--gray-800);
+        color: #e2e8f0;
         margin-left: 4px;
       }
     }
@@ -224,7 +226,7 @@
 
 // Cart Summary
 .cart-summary {
-  background: var(--gray-50);
+  background: var(--gray-100);
   border-radius: var(--border-radius-sm);
   padding: 12px;
   margin-bottom: 16px;
@@ -270,7 +272,7 @@
     }
     
     .label {
-      color: var(--gray-700);
+      color: #cbd5e1;
       font-size: 0.85rem;
       
       @media (min-width: 576px) {
@@ -279,7 +281,7 @@
     }
     
     .value {
-      color: var(--gray-800);
+      color: #e2e8f0;
       font-weight: 600;
       font-size: 0.85rem;
       
@@ -296,6 +298,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 0 16px 12px;
+  background: var(--surface-secondary);
   
   @media (min-width: 576px) {
     flex-direction: row;
@@ -376,9 +379,9 @@
   }
   
   .continue-btn {
-    color: var(--gray-700);
+    color: #94a3b8;
     border: 1px solid var(--gray-300);
-    background: var(--white);
+    background: var(--surface-secondary);
     order: 2;
     
     @media (min-width: 576px) {
@@ -386,14 +389,14 @@
     }
     
     &:hover {
-      background: var(--gray-50);
+      background: var(--gray-100);
       border-color: var(--gray-400);
-      color: var(--gray-800);
+      color: #e2e8f0;
     }
   }
   
   .cart-btn {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
     color: var(--white) !important;
     border: 1px solid transparent;
     box-shadow: var(--shadow-sm);
