@@ -19,6 +19,8 @@ Thumbs.db
 .env.*.local
 .env.production
 .env.prod
+.vercel
+deployment
 
 # Backend (Symfony)
 backend/var/
@@ -35,6 +37,7 @@ frontend/.angular/
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
+frontend/.vercel
 
 # Docker
 .docker/
