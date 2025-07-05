@@ -18,6 +18,7 @@ Thumbs.db
 .env.local
 .env.*.local
 .env.production
+.env.prod
 
 # Backend (Symfony)
 backend/var/
@@ -70,3 +71,7 @@ composer.lock
 *.pem
 *.key
 *.crt
+
+CLAUDE.md
+.claude
+FRONTEND_DEPLOY.md
